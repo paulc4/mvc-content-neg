@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.springsource.training.module</groupId>
+	<artifactId>mvc-content-neg</artifactId>
+	<name>Spring MVC Views Solution</name>
+	<packaging>war</packaging>
+	<version>1.0.0</version>
+
+  	<properties>
+		<!-- version numbers for dependencies that are implicitly inherited-->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<spring.framework.version>3.2.0.RELEASE</spring.framework.version>
+		<spring.security.version>3.1.3.RELEASE</spring.security.version>
+		<hibernate.version>4.1.4.Final</hibernate.version>
+		<aspectj.version>1.7.1</aspectj.version>
+		<log4j.version>1.2.14</log4j.version>
+		<slf4j.version>1.6.4</slf4j.version>
+		<cglib.version>2.2.2</cglib.version>
+		<junit.version>4.10</junit.version>
+		<hsqldb.version>2.2.8</hsqldb.version>
+		<servlet.version>3.0.1</servlet.version>
+		<jstl.version>1.2</jstl.version>
+ 		<hibernate.validator.version>4.2.0.Final</hibernate.validator.version>
+ 		<tiles.version>3.0.1</tiles.version>
+ 		<jackson.version>1.9.4</jackson.version>
+		<joda.version>2.1</joda.version>
+		<poi.version>3.0.2-FINAL</poi.version>
+	</properties>
+
+	<dependencies>
+		<!-- Web layer -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.framework.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>${spring.framework.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>${servlet.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>${jstl.version}</version>
+			<scope>compile</scope> <!-- package not provided by tomcat -->
+		</dependency>
+
+		<!--  Security -->
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-web</artifactId>
+				<version>${spring.security.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-taglibs</artifactId>
+				<version>${spring.security.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-config</artifactId>
+				<version>${spring.security.version}</version>
+			</dependency>
+
+		<!-- Dependency injection: not importing spring-core, spring-beans etc because they are
+		transitive/implicit dependencies of the other Spring libs such as spring-tx) -->
+		<!-- Database access -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${spring.framework.version}</version>
+		</dependency>
+		
+		<!-- needed for the Spring jdbc namespace -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${spring.framework.version}</version>
+		</dependency>
+
+		<!-- Object Relational mapping -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${spring.framework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+
+		<!-- Needed for Hibernate -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-jcl</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+
+		<!-- Database -->
+		<dependency>
+			<groupId>org.hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+			<version>${hsqldb.version}</version>
+		</dependency>
+
+		<!-- Testing -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.framework.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Others -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>${cglib.version}</version>
+		</dependency>
+
+		<!-- Views -->
+	    <dependency>
+			<groupId>org.apache.tiles</groupId>
+			<artifactId>tiles-jsp</artifactId>
+			<version>${tiles.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+	      			<artifactId>jcl-over-slf4j</artifactId>
+	 			</exclusion>
+			</exclusions>
+		</dependency>	
+		<dependency>
+			<groupId>poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>${poi.version}</version>
+		</dependency>
+		<dependency>
+	    	<groupId>org.codehaus.jackson</groupId>
+	    	<artifactId>jackson-mapper-asl</artifactId>
+	        <version>${jackson.version}</version>
+	    </dependency>	
+	    <dependency>
+	        <groupId>joda-time</groupId>
+	        <artifactId>joda-time</artifactId>
+	        <version>${joda.version}</version>
+	    </dependency>		
+	</dependencies>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>2.8</version>
+				<configuration>
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>true</downloadJavadocs>
+					<wtpversion>2.0</wtpversion>
+					<sourceIncludes>
+						<sourceInclude>**/*.*</sourceInclude>
+					</sourceIncludes>
+					<projectnatures>
+    					<projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
+    					<projectnature>org.eclipse.jdt.core.javanature</projectnature>
+    					<projectnature>org.eclipse.wst.common.project.facet.core.nature</projectnature>
+    					<projectnature>org.eclipse.wst.common.modulecore.ModuleCoreNature</projectnature>
+    					<projectnature>org.eclipse.jem.workbench.JavaEMFNature</projectnature>
+					</projectnatures>
+					<additionalBuildcommands>
+      					<name>org.springframework.ide.eclipse.core.springbuilder</name>
+    				</additionalBuildcommands>
+					<warContextRoot>mvc-content-neg</warContextRoot>
+					<wtpContextName>mvc-content-neg</wtpContextName>
+				</configuration>
+			</plugin>
+
+			<plugin>
+		        <groupId>org.apache.maven.plugins</groupId>
+        		<artifactId>maven-surefire-plugin</artifactId>
+        		<version>2.12</version>
+        		<configuration>
+          		<includes>
+            		<include>**/*Tests.java</include>
+          		</includes>
+        		</configuration>
+      		</plugin>
+		</plugins>
+	</build>
+
+</project>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+	"-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+	"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+	
+	<definition name="accounts/list" extends="standardLayout">
+		<put-attribute name="title" value="accounts.list.title" />
+		<put-attribute name="main" value="/WEB-INF/accounts/list.jsp" />
+		<put-attribute name="navigationTab" value="accounts" />
+	</definition>
+
+	<definition name="accounts/show" extends="standardLayout">
+		<put-attribute name="title" value="accounts.show.title" />
+		<put-attribute name="main" value="/WEB-INF/accounts/show.jsp" />
+		<put-attribute name="navigationTab" value="details" />
+	</definition>
+	
+</tiles-definitions>

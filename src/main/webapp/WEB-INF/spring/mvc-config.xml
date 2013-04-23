@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	
+	<mvc:annotation-driven/>
+
+	<!-- Configures a handler for serving static resources by forwarding to 
+		the Servlet container's default Servlet. -->
+	<mvc:default-servlet-handler />
+
+	<mvc:view-controller path="/" view-name="welcome" />
+	<mvc:view-controller path="/home" view-name="welcome" />
+	<mvc:view-controller path="/denied" view-name="denied" />
+
+	<!-- Scans the impl package for module @Components to install and configure -->
+	<context:component-scan base-package="rewardsonline"
+		use-default-filters="false">
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+	<!-- View resolver that delegates to other controllers based on the content 
+		type -->
+	<bean
+		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="contentNegotiationManager" ref="cnManager" />
+
+		<property name="viewResolvers">
+			<list>
+				<bean class="org.springframework.web.servlet.view.XmlViewResolver">
+					<property name="location" value="/WEB-INF/spring/spreadsheet-views.xml" />
+				</bean>
+
+				<bean
+					class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
+					<property name="contentType" value="text/html" />
+				</bean>
+				<bean class="rewardsonline.accounts.JsonViewResolver" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- Simple strategy: only path extension is taken into account -->
+	<bean id="cnManager"
+		class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+		<property name="ignoreAcceptHeader" value="true" />
+		<property name="defaultContentType" value="text/html" />
+
+		<property name="mediaTypes">
+			<map>
+				<entry key="html" value="text/html" />
+				<entry key="json" value="application/json" />
+				<entry key="xls" value="application/vnd.ms-excel" />
+			</map>
+		</property>
+	</bean>
+
+	<!-- Configures Tiles -->
+	<bean id="tilesConfigurer"
+		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/WEB-INF/tiles.xml</value>
+				<value>/WEB-INF/accounts/tiles.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- Resolves messages to support internationalization -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="/WEB-INF/messages/global" />
+	</bean>
+
+	<!-- Enable pretty-print on the Jackson Http Message convertor -->
+	<bean class="rewardsonline.accounts.MvcConfiguringPostProcessor"/>
+
+</beans>

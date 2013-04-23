@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/util 
+                           http://www.springframework.org/schema/util/spring-util.xsd
+                           http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<security:http access-denied-page="/denied"
+		use-expressions="true">
+		<security:form-login login-page="/login"
+			authentication-failure-url="/login?login_error=true" />
+		<security:intercept-url pattern="/accounts/**"
+			access="hasRole('ROLE_USER')" />
+		<security:logout />
+	</security:http>
+
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:user-service properties="/WEB-INF/spring/users.properties" />
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+</beans>

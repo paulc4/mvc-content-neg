@@ -1,0 +1,154 @@
+body, div, td {
+  font-family:Arial, Helvetica, sans-serif;
+  font-size:12px;
+  color:#666;
+}
+
+body {
+  background-color: #fff;
+  background-image: url(../images/springsource_banner_green.png);
+  background-position: top center;
+  background-repeat: no-repeat;
+  text-align:center;
+  min-width:600px;
+  min-height:400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+h1 {
+  font-family:Helvetica, sans-serif;
+  color:#7db223;
+  font-size:26px;
+  line-height:40px;
+}
+
+h2 {
+  font-family:Helvetica, sans-serif;
+  color:#7db223;
+  font-size:18px;
+  line-height:36px;
+}
+
+h3 {
+  font-family:Helvetica, sans-serif;
+  color:#7db223;
+  font-size:16px;
+  line-height:32px;
+}
+
+a:link{color:#7db223; text-decoration:underline; font-size:13px;}
+a:hover{color:#456314; text-decoration:underline; font-size:13px;}
+a:active{color:#7db223; text-decoration:underline; font-size:13px;}
+a:visited{color:#7db223; text-decoration:underline; font-size:13px;}
+
+.button {
+	background-color: #D0D0D0;
+}
+
+ul {
+  list-style: disc url(images/bullet.gif);
+}
+
+li {
+  padding-top:5px;
+}
+
+li ul {
+  list-style: square url(images/sub-bullet.gif);
+}
+
+li ul li ul {
+  list-style: circle none;
+}
+
+#page {
+  margin:0 auto;
+  position:relative;
+  top: 75px;
+  left:20px;
+  width:800px;
+  text-align:left;
+}
+
+#footer { width:100%; vertical-align: top;}
+#left { float:left; width:20%; }
+#right { float:right; width:20%; text-align:right; }
+#center { margin:0 auto; }
+
+table {
+  background:#e0e7d3;
+  margin: 0;
+  border: 4px solid #e0e7d3;
+  border-collapse: collapse;
+}
+
+table table {
+  margin: -5px 0;
+  border: 0px solid #e0e7d3;
+  width:100%;
+}
+
+table td, table th {
+  padding:8px;
+}
+
+table th {
+  font-size:12px;
+  text-align: left;
+  font-weight: bold;
+  color: #800000;
+  border-bottom: thin solid #800000;
+}
+
+table thead {
+  font-weight:bold;
+  font-style:italic;
+  background-color:#c9d3b8;
+}
+
+caption { 
+  caption-side: top; 
+  width: auto;
+  text-align: left;
+  font-size:12px;
+  color:#848f73;
+  padding-bottom:4px;
+}
+
+
+fieldset {
+  background:#e0e7d3;
+  padding:8px;
+  padding-bottom:22px;
+  border: none;
+  width:560px;
+}
+
+fieldset label {
+  width:70px;
+  float:left;
+  margin-top:1.7em;
+  margin-left:20px;
+}
+
+fieldset textfield {
+  margin:3px;
+  height:20px; 
+  background:#e4eadb;
+}
+
+fieldset textarea {
+  margin:3px;
+  height:165px;
+  background:#e4eadb;
+}
+
+fieldset input {
+  margin:3px;
+  height:20px;
+  background:#e4eadb;
+}
+
+fieldset table{width:100%;}
+fieldset th{padding-left:25px;}

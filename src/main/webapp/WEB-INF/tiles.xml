@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+	
+	<definition name="standardLayout" template="/WEB-INF/layouts/standard.jsp">
+		<put-attribute name="header" value="/WEB-INF/header.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/footer.jsp" />
+	</definition>
+	
+	<definition name="welcome" extends="standardLayout">
+		<put-attribute name="title" value="welcome.title" />
+		<put-attribute name="main" value="/WEB-INF/welcome.jsp" />
+		<put-attribute name="navigationTab" value="home" />
+	</definition>
+
+	<definition name="error" extends="standardLayout">
+		<put-attribute name="title" value="error.title" />
+		<put-attribute name="main" value="/WEB-INF/error.jsp" />
+		<put-attribute name="navigationTab" value="error" />
+	</definition>
+
+	<definition name="denied" extends="standardLayout">
+		<put-attribute name="title" value="denied.title" />
+		<put-attribute name="main" value="/WEB-INF/denied.jsp" />
+		<put-attribute name="navigationTab" value="error" />
+	</definition>
+
+	<definition name="login" extends="standardLayout">
+		<put-attribute name="title" value="login.title" />
+		<put-attribute name="main" value="/WEB-INF/login.jsp" />
+		<put-attribute name="navigationTab" value="login" />
+	</definition>
+
+</tiles-definitions>
