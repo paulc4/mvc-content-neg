@@ -14,7 +14,7 @@
 	<tx:annotation-driven />
 
 	<!-- Loads accounts from the data source -->
-	<bean id="accountRepository" class="rewardsonline.accounts.hibernate.JpaAccountManager" />
+	<bean id="accountRepository" class="rewardsonline.accounts.repository.JpaAccountManager" />
 
 	<bean id="emFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">

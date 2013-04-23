@@ -1,4 +1,4 @@
-package rewardsonline.accounts.hibernate;
+package rewardsonline.accounts.repository;
 
 import java.util.ArrayList;
 import java.util.List;
