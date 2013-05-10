@@ -2,6 +2,7 @@ package rewardsonline.accounts;
 
 import java.security.Principal;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping("/accounts")
 public class AccountsController {
+
+	private Logger logger = Logger.getLogger(AccountsController.class);
 
 	private AccountManager accountManager;
 
@@ -34,7 +37,7 @@ public class AccountsController {
 
 		model.addAttribute("customer", accountManager.findCustomer(prinicpal.getName()));
 		assert(model.asMap().get("customer") != null);
-		System.out.println(" ***** CUST = " + model.asMap().get("customer") );
+		logger.info("Customer = " + model.asMap().get("customer") );
 		return "accounts/list";
 	}
 

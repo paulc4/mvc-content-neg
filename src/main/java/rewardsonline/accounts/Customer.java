@@ -1,5 +1,6 @@
 package rewardsonline.accounts;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -69,6 +70,7 @@ public class Customer {
 	public Customer(String number, String name) {
 		this.number = number;
 		this.name = name;
+		accounts = new ArrayList<Account>();
 	}
 
 	/**
@@ -180,11 +182,14 @@ public class Customer {
 	 *             If the account number already exists for this customer.
 	 */
 	public void addAccount(Account account) {
-		if (getAccount(account.getNumber()) != null)
-			throw new DuplicateAccountException("Account "
-					+ account.getNumber() + " already exists for customeer "
-					+ number);
-		accounts.add(account);
+		try {
+			if (getAccount(account.getNumber()) != null)
+				throw new DuplicateAccountException("Account "
+						+ account.getNumber()
+						+ " already exists for customeer " + number);
+		} catch (AccountNotFoundException e) {
+			accounts.add(account);
+		}
 	}
 
 	/**
@@ -210,10 +215,16 @@ public class Customer {
 	 * @return the account object
 	 */
 	public Account getAccount(String number) {
-		// Simple sequential search - OK as most people don't have many accounts
-		for (Account account : accounts) {
-			if (account.getNumber().equals(name)) {
-				return account;
+		if (accounts == null)
+			throw new IllegalStateException("No accounts collection");
+
+		if (accounts != null) {
+			// Simple sequential search - OK as most people don't have many
+			// accounts
+			for (Account account : accounts) {
+				if (account.getNumber().equals(name)) {
+					return account;
+				}
 			}
 		}
 

@@ -1,11 +1,11 @@
 package rewardsonline.accounts;
 
 import static junit.framework.Assert.assertEquals;
-
-import java.util.List;
+import static junit.framework.Assert.assertNotNull;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.ui.ExtendedModelMap;
 
 import com.sun.net.httpserver.HttpPrincipal;
@@ -25,7 +25,6 @@ public class AccountsControllerTests {
 		controller = new AccountsController(accountManager);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Test
 	public void testList() throws Exception {
 		ExtendedModelMap model = new ExtendedModelMap();
@@ -33,10 +32,14 @@ public class AccountsControllerTests {
 				StubAccountManager.TEST_USER, StubAccountManager.TEST_USER),
 				model);
 		assertEquals("accounts/list", view);
-		assertEquals(1, ((List<Account>) model.get("accountList")).size());
+		Customer customer = (Customer) model.get("customer");
+
+		assertNotNull(customer);
+		assertEquals(1, customer.getAccounts().size());
 	}
 
 	@Test
+	@DirtiesContext
 	public void testShow() throws Exception {
 		ExtendedModelMap model = new ExtendedModelMap();
 		String view = controller.show(StubAccountManager.TEST_ACCOUNT_NUMBER,
