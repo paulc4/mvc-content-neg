@@ -35,11 +35,11 @@ public class AccountsController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
-	Customer getCustomerAccount(Principal prinicpal) {
-		if (prinicpal == null)
+	Customer getCustomerAccount(Principal principal) {
+		if (principal == null)
 			throw new AccessDeniedException("Not authenitcated");
 
-		return accountManager.findCustomer(prinicpal.getName());
+		return accountManager.findCustomer(principal.getName());
 	}
 
 	/**
@@ -47,8 +47,16 @@ public class AccountsController {
 	 */
 	@RequestMapping(value = "/{number}", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody
-	Account getAccountDetails(@PathVariable String number) {
-		return accountManager.findAccount(number);
+	Account getAccountDetails(@PathVariable String number, Principal principal) {
+		if (principal == null)
+			throw new AccessDeniedException("Not authenitcated");
+
+		Account account = accountManager.findAccount(number);
+
+		if (account.getOwner().getName().equals(principal.getName()))
+			return account;
+
+		throw new AccessDeniedException("Not authorized");
 	}
 
 	// HTML via Tiles views
@@ -56,11 +64,11 @@ public class AccountsController {
 	 * Handles requests to list all accounts for currently logged in user.
 	 */
 	@RequestMapping(method = RequestMethod.GET)
-	public String list(Principal prinicpal, Model model) {
-		if (prinicpal == null)
+	public String list(Principal principal, Model model) {
+		if (principal == null)
 			throw new AccessDeniedException("Not authenitcated");
 
-		model.addAttribute("customer", getCustomerAccount(prinicpal));
+		model.addAttribute("customer", getCustomerAccount(principal));
 		logger.info("Customer = " + model.asMap().get("customer"));
 		return "accounts/list";
 	}
@@ -69,8 +77,9 @@ public class AccountsController {
 	 * Handles requests to shows detail about one account.
 	 */
 	@RequestMapping(value = "/{number}", method = RequestMethod.GET)
-	public String show(@PathVariable String number, Model model) {
-		model.addAttribute(getAccountDetails(number));
+	public String show(@PathVariable String number, Principal principal,
+			Model model) {
+		model.addAttribute(getAccountDetails(number, principal));
 		return "accounts/show";
 	}
 

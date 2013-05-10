@@ -20,8 +20,14 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
 			/WEB-INF/spring/app-config.xml
-				/WEB-INF/spring/security-config.xml
+			/WEB-INF/spring/security-config.xml
 		</param-value>
+	</context-param>
+
+	<!-- Specify "xml" or "javaconfig" --> 
+	<context-param>
+		<param-name>spring.profiles.active</param-name>
+		<param-value>xml</param-value>
 	</context-param>
 
 	<listener>
@@ -37,6 +43,7 @@
 			<param-name>contextConfigLocation</param-name>
 			<param-value>
 				/WEB-INF/spring/mvc-config.xml
+				/WEB-INF/spring/mvc-java-config.xml
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>

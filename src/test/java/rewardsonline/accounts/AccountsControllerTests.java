@@ -3,6 +3,8 @@ package rewardsonline.accounts;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 
+import java.security.Principal;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.test.annotation.DirtiesContext;
@@ -19,6 +21,9 @@ public class AccountsControllerTests {
 
 	private StubAccountManager accountManager;
 
+	private Principal testPrincipal = new HttpPrincipal(
+			StubAccountManager.TEST_USER, StubAccountManager.TEST_USER);
+
 	@Before
 	public void setUp() throws Exception {
 		accountManager = new StubAccountManager();
@@ -28,9 +33,7 @@ public class AccountsControllerTests {
 	@Test
 	public void testList() throws Exception {
 		ExtendedModelMap model = new ExtendedModelMap();
-		String view = controller.list(new HttpPrincipal(
-				StubAccountManager.TEST_USER, StubAccountManager.TEST_USER),
-				model);
+		String view = controller.list(testPrincipal, model);
 		assertEquals("accounts/list", view);
 		Customer customer = (Customer) model.get("customer");
 
@@ -43,7 +46,7 @@ public class AccountsControllerTests {
 	public void testShow() throws Exception {
 		ExtendedModelMap model = new ExtendedModelMap();
 		String view = controller.show(StubAccountManager.TEST_ACCOUNT_NUMBER,
-				model);
+				testPrincipal, model);
 		assertEquals("accounts/show", view);
 		assertEquals(StubAccountManager.TEST_ACCOUNT_NUMBER,
 				((Account) model.get("account")).getNumber());
