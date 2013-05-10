@@ -5,8 +5,8 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
-	
-	<mvc:annotation-driven/>
+
+	<mvc:annotation-driven />
 
 	<!-- Configures a handler for serving static resources by forwarding to 
 		the Servlet container's default Servlet. -->
@@ -23,27 +23,6 @@
 			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 
-	<!-- View resolver that delegates to other controllers based on the content 
-		type -->
-	<bean
-		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
-		<property name="contentNegotiationManager" ref="cnManager" />
-
-		<property name="viewResolvers">
-			<list>
-				<bean class="org.springframework.web.servlet.view.XmlViewResolver">
-					<property name="location" value="/WEB-INF/spring/spreadsheet-views.xml" />
-				</bean>
-
-				<bean
-					class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
-					<property name="contentType" value="text/html" />
-				</bean>
-				<bean class="rewardsonline.accounts.JsonViewResolver" />
-			</list>
-		</property>
-	</bean>
-
 	<!-- Simple strategy: only path extension is taken into account -->
 	<bean id="cnManager"
 		class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
@@ -54,12 +33,16 @@
 			<map>
 				<entry key="html" value="text/html" />
 				<entry key="json" value="application/json" />
-				<entry key="xls" value="application/vnd.ms-excel" />
+				<entry key="xml" value="application/xml" />
 			</map>
 		</property>
 	</bean>
 
 	<!-- Configures Tiles -->
+	<bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
+		<property name="contentType" value="text/html" />
+	</bean>
+
 	<bean id="tilesConfigurer"
 		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
 		<property name="definitions">
@@ -77,6 +60,6 @@
 	</bean>
 
 	<!-- Enable pretty-print on the Jackson Http Message convertor -->
-	<bean class="rewardsonline.accounts.MvcConfiguringPostProcessor"/>
+	<bean class="rewardsonline.accounts.MvcConfiguringPostProcessor" />
 
 </beans>

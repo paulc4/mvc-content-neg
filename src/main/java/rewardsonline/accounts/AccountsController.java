@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * A controller handling requests for showing and updating an Account.
@@ -27,6 +28,30 @@ public class AccountsController {
 		this.accountManager = accountManager;
 	}
 
+	// REST using Message Converters
+	/**
+	 * Handles requests to fetch customer account details for the currently
+	 * logged in user.
+	 */
+	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody
+	Customer getCustomerAccount(Principal prinicpal) {
+		if (prinicpal == null)
+			throw new AccessDeniedException("Not authenitcated");
+
+		return accountManager.findCustomer(prinicpal.getName());
+	}
+
+	/**
+	 * Handles requests to fetch detail about one account.
+	 */
+	@RequestMapping(value = "/{number}", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody
+	Account getAccountDetails(@PathVariable String number) {
+		return accountManager.findAccount(number);
+	}
+
+	// HTML via Tiles views
 	/**
 	 * Handles requests to list all accounts for currently logged in user.
 	 */
@@ -35,9 +60,8 @@ public class AccountsController {
 		if (prinicpal == null)
 			throw new AccessDeniedException("Not authenitcated");
 
-		model.addAttribute("customer", accountManager.findCustomer(prinicpal.getName()));
-		assert(model.asMap().get("customer") != null);
-		logger.info("Customer = " + model.asMap().get("customer") );
+		model.addAttribute("customer", getCustomerAccount(prinicpal));
+		logger.info("Customer = " + model.asMap().get("customer"));
 		return "accounts/list";
 	}
 
@@ -46,7 +70,7 @@ public class AccountsController {
 	 */
 	@RequestMapping(value = "/{number}", method = RequestMethod.GET)
 	public String show(@PathVariable String number, Model model) {
-		model.addAttribute(accountManager.findAccount(number));
+		model.addAttribute(getAccountDetails(number));
 		return "accounts/show";
 	}
 

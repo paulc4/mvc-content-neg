@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.sun.istack.internal.NotNull;
+import javax.validation.constraints.NotNull;
 
 /**
  * A customer of a financial institution. A customer has zero or more accounts.

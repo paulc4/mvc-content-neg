@@ -22,7 +22,7 @@
 		<hsqldb.version>2.2.8</hsqldb.version>
 		<servlet.version>3.0.1</servlet.version>
 		<jstl.version>1.2</jstl.version>
- 		<hibernate.validator.version>4.2.0.Final</hibernate.validator.version>
+ 		<hibernate.validator.version>4.3.1.Final</hibernate.validator.version>
  		<tiles.version>3.0.1</tiles.version>
  		<jackson.version>1.9.4</jackson.version>
 		<joda.version>2.1</joda.version>
@@ -57,26 +57,25 @@
 		</dependency>
 
 		<!--  Security -->
-			<dependency>
-				<groupId>org.springframework.security</groupId>
-				<artifactId>spring-security-web</artifactId>
-				<version>${spring.security.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.springframework.security</groupId>
-				<artifactId>spring-security-taglibs</artifactId>
-				<version>${spring.security.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.springframework.security</groupId>
-				<artifactId>spring-security-config</artifactId>
-				<version>${spring.security.version}</version>
-			</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
 
 		<!-- Dependency injection: not importing spring-core, spring-beans etc because they are
-		transitive/implicit dependencies of the other Spring libs such as spring-tx) -->
+		     transitive/implicit dependencies of the other Spring libs such as spring-tx) -->
+
 		<!-- Database access -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -147,9 +146,15 @@
 			<artifactId>cglib</artifactId>
 			<version>${cglib.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>${hibernate.validator.version}</version>
+		</dependency>
+
 
 		<!-- Views -->
-	    <dependency>
+		<dependency>
 			<groupId>org.apache.tiles</groupId>
 			<artifactId>tiles-jsp</artifactId>
 			<version>${tiles.version}</version>
