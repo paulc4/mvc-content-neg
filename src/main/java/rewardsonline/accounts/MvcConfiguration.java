@@ -11,8 +11,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
+import org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
@@ -62,6 +62,7 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter {
 	@Override
 	public void configureContentNegotiation(
 			ContentNegotiationConfigurer configurer) {
+		// Simple strategy: only path extension is taken into account
 		configurer.favorPathExtension(true).ignoreAcceptHeader(true)
 				.useJaf(false).defaultContentType(MediaType.TEXT_HTML)
 				.mediaType("html", MediaType.TEXT_HTML)
@@ -84,26 +85,16 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter {
 	public void configureMessageConverters(
 			List<HttpMessageConverter<?>> converters) {
 
-		if (converters.size() == 0) {
-			MappingJacksonHttpMessageConverter jmc = new MappingJacksonHttpMessageConverter();
-			jmc.setPrettyPrint(true);
-			logger.info("Creating Jackson V1 convertor: "
-					+ jmc.getClass().getSimpleName());
-			converters.add(jmc);
-			return;
-		}
+		// List is initially empty. Create and configure what we need.
+		MappingJacksonHttpMessageConverter jmc = new MappingJacksonHttpMessageConverter();
+		jmc.setPrettyPrint(true);
+		logger.info("Creating Jackson V1 convertor: "
+				+ jmc.getClass().getSimpleName());
+		converters.add(jmc);
 
-		for (HttpMessageConverter<?> c : converters) {
-			if (c instanceof MappingJacksonHttpMessageConverter) {
-				logger.info("Configuring Jackson V1: "
-						+ c.getClass().getSimpleName());
-				((MappingJacksonHttpMessageConverter) c).setPrettyPrint(true);
-			} else if (c instanceof MappingJackson2HttpMessageConverter) {
-				logger.info("Configuring Jackson V2: "
-						+ c.getClass().getSimpleName());
-				((MappingJackson2HttpMessageConverter) c).setPrettyPrint(true);
-			}
-		}
-
+		Jaxb2RootElementHttpMessageConverter j2 = new Jaxb2RootElementHttpMessageConverter();
+		converters.add(j2);
+		return;
 	}
+
 }

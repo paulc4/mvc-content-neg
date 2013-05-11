@@ -6,7 +6,7 @@
 </h1>
 
 <div>
-	<!--   <a href="accounts.xls"><fmt:message key="accounts.list.command.asExcel"/></a> -->
+	<a href="accounts.xml"><fmt:message key="accounts.list.command.asXml"/></a>
 	&#160;
 	<a href="accounts.json"><fmt:message key="accounts.list.command.asJson"/></a>
 </div>

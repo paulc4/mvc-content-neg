@@ -15,6 +15,9 @@ import javax.persistence.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * A customer of a financial institution. A customer has zero or more accounts.
@@ -22,6 +25,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name = "T_CUSTOMER")
+@XmlRootElement
 public class Customer {
 
 	@Id
@@ -100,6 +104,7 @@ public class Customer {
 	/**
 	 * Returns the number used to uniquely identify this account.
 	 */
+	@XmlAttribute
 	public String getNumber() {
 		return number;
 	}
@@ -117,6 +122,7 @@ public class Customer {
 	/**
 	 * Returns the name on file for this account.
 	 */
+	@XmlAttribute
 	public String getName() {
 		return name;
 	}
@@ -137,10 +143,12 @@ public class Customer {
 	 * 
 	 * @return
 	 */
+	@XmlAttribute
 	public String getUsername() {
 		return username;
 	}
 
+	@XmlAttribute
 	public Date getDateOfBirth() {
 		return dateOfBirth;
 	}
@@ -149,6 +157,7 @@ public class Customer {
 		this.dateOfBirth = dateOfBirth;
 	}
 
+	@XmlAttribute
 	public String getEmail() {
 		return email;
 	}
@@ -157,6 +166,7 @@ public class Customer {
 		this.email = email;
 	}
 
+	@XmlAttribute
 	public boolean isReceiveNewsletter() {
 		return receiveNewsletter;
 	}
@@ -165,6 +175,7 @@ public class Customer {
 		this.receiveNewsletter = receiveNewsletter;
 	}
 
+	@XmlAttribute
 	public boolean isReceiveMonthlyEmailUpdate() {
 		return receiveMonthlyEmailUpdate;
 	}
@@ -201,6 +212,7 @@ public class Customer {
 	 *            the name of the account account e.g "Fred Smith"
 	 * @return the account object
 	 */
+	@XmlElement
 	public List<Account> getAccounts() {
 		return accounts;
 	}

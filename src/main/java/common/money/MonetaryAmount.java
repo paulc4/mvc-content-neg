@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import javax.xml.bind.annotation.XmlValue;
+
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonProperty;
 
@@ -133,6 +135,7 @@ public class MonetaryAmount implements Serializable {
 	 * @return this amount as a big decimal
 	 */
 	@JsonProperty
+	@XmlValue
 	public BigDecimal getValue() {
 		return value;
 	}

@@ -33,7 +33,8 @@ public class AccountsController {
 	 * Handles requests to fetch customer account details for the currently
 	 * logged in user.
 	 */
-	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(method = RequestMethod.GET,
+			produces = {"application/json", "application/xml"})
 	public @ResponseBody
 	Customer getCustomerAccount(Principal principal) {
 		if (principal == null)
@@ -45,7 +46,8 @@ public class AccountsController {
 	/**
 	 * Handles requests to fetch detail about one account.
 	 */
-	@RequestMapping(value = "/{number}", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/{number}", method = RequestMethod.GET,
+			produces = {"application/json", "application/xml"})
 	public @ResponseBody
 	Account getAccountDetails(@PathVariable String number, Principal principal) {
 		if (principal == null)
@@ -53,7 +55,7 @@ public class AccountsController {
 
 		Account account = accountManager.findAccount(number);
 
-		if (account.getOwner().getName().equals(principal.getName()))
+		if (account.getOwner().getUsername().equals(principal.getName()))
 			return account;
 
 		throw new AccessDeniedException("Not authorized");

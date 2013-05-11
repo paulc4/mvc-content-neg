@@ -7,6 +7,11 @@
 </h1>
 
 <div>
+	<spring:url var="showUrl" value="/accounts/{number}.xml">
+		<spring:param name="number" value="${account.number}" />
+	</spring:url>
+	<a href="${showUrl}"><fmt:message key="accounts.show.command.asXml"/></a>
+	&#160;
 	<spring:url var="showUrl" value="/accounts/{number}.json">
 		<spring:param name="number" value="${account.number}" />
 	</spring:url>

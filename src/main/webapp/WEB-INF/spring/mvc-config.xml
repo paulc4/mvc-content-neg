@@ -7,7 +7,7 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<!--  Traditional configuration using XML only.  Set "xml" profile in web.xml -->
-	<mvc:annotation-driven />
+	<mvc:annotation-driven content-negotiation-manager="cnManager"/>
 
 	<!-- Configures a handler for serving static resources by forwarding to 
 		the Servlet container's default Servlet. -->
@@ -27,8 +27,10 @@
 	<!-- Simple strategy: only path extension is taken into account -->
 	<bean id="cnManager"
 		class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+		<property name="favorPathExtension" value="true"/>
 		<property name="ignoreAcceptHeader" value="true" />
 		<property name="defaultContentType" value="text/html" />
+		<property name="useJaf" value="false"/>
 
 		<property name="mediaTypes">
 			<map>

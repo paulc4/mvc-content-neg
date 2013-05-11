@@ -6,6 +6,8 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import common.money.MonetaryAmount;
 
@@ -16,6 +18,7 @@ import common.money.MonetaryAmount;
  */
 @Entity
 @Table(name = "T_ACCOUNT_TRANSACTION")
+@XmlRootElement
 public class Transaction {
 
 	@Id
@@ -52,6 +55,7 @@ public class Transaction {
 	 * 
 	 * @return the name
 	 */
+	@XmlAttribute
 	public String getAccountName() {
 		return accountName;
 	}
@@ -61,6 +65,7 @@ public class Transaction {
 	 * 
 	 * @return the name
 	 */
+	@XmlAttribute
 	public String getAccountNumber() {
 		return accountNumber;
 	}
@@ -70,6 +75,7 @@ public class Transaction {
 	 * 
 	 * @return the name
 	 */
+	@XmlAttribute
 	public String getBankCode() {
 		return bankCode;
 	}
@@ -79,6 +85,7 @@ public class Transaction {
 	 * 
 	 * @return the total savings
 	 */
+	@XmlAttribute
 	public MonetaryAmount getAmount() {
 		return amount;
 	}

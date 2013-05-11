@@ -3,6 +3,7 @@ package rewardsonline.accounts;
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
 
@@ -21,6 +22,9 @@ public class MvcConfiguringPostProcessor implements BeanPostProcessor {
 	 */
 	public Object postProcessBeforeInitialization(Object bean, String name)
 			throws BeansException {
+		if (bean instanceof HttpMessageConverter<?>)
+			logger.warn("HTTP Converter: " + bean.getClass());
+
 		if (bean instanceof MappingJacksonHttpMessageConverter) {
 			logger.info("Configuring Jackson V1: " + name);
 			((MappingJacksonHttpMessageConverter) bean).setPrettyPrint(true);
