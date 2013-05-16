@@ -11,7 +11,7 @@
 	<!-- Create this configuration as a bean, it creates everything else. -->
 	<bean class="rewardsonline.accounts.MvcConfiguration" />
 
-	<!-- Enable all he annotations - normally enabled by component-scanner. -->
+	<!-- Enable all the annotations - normally enabled by component-scanner. -->
 	<context:annotation-config />
 
 </beans>
