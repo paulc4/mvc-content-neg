@@ -9,6 +9,9 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonUnwrapped;
+
 import common.money.MonetaryAmount;
 
 /**
@@ -17,11 +20,12 @@ import common.money.MonetaryAmount;
  * for he or she to date (e.g. $1000). Scoped by the Account aggregate.
  */
 @Entity
-@Table(name = "T_ACCOUNT_TRANSACTION")
 @XmlRootElement
+@Table(name = "T_ACCOUNT_TRANSACTION")
 public class Transaction {
 
 	@Id
+	@JsonIgnore
 	@Column(name = "ID")
 	private Integer entityId;
 
@@ -35,6 +39,7 @@ public class Transaction {
 	private String accountNumber;
 
 	@Embedded
+	@JsonUnwrapped
 	@AttributeOverride(name="value", column=@Column(name="AMOUNT"))
 	private MonetaryAmount amount;
 

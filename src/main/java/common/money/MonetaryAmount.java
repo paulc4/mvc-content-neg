@@ -134,8 +134,8 @@ public class MonetaryAmount implements Serializable {
 	 * Get this amount as a big decimal. Useful for when a BigDecimal type is needed by an external API or system.
 	 * @return this amount as a big decimal
 	 */
-	@JsonProperty
 	@XmlValue
+	@JsonProperty
 	public BigDecimal getValue() {
 		return value;
 	}

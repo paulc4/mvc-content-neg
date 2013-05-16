@@ -19,6 +19,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonUnwrapped;
 import org.springframework.util.StringUtils;
 
 import common.money.MonetaryAmount;
@@ -40,6 +42,7 @@ public class Account {
 	public static final String CREDIT = "CREDIT";
 
 	@Id
+	@JsonIgnore
 	@Column(name = "ID")
 	private Integer entityId;
 
@@ -53,6 +56,7 @@ public class Account {
 	private String creditCardNumber;
 
 	@Embedded
+	@JsonUnwrapped
 	@AttributeOverride(name="value", column=@Column(name="BALANCE"))
 	private MonetaryAmount balance;
 

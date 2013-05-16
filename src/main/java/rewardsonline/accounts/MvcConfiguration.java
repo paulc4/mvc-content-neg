@@ -14,12 +14,14 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
 import org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.accept.ContentNegotiationManager;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 
@@ -43,7 +45,7 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter {
 		registry.addViewController("/denied").setViewName("denied");
 	}
 
-	@Bean
+	@Bean(name="tilesViewResolver")
 	public ViewResolver getTilesViewResolver() {
 		TilesViewResolver resolver = new TilesViewResolver();
 		resolver.setContentType("text/html");
@@ -68,9 +70,19 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter {
 				.mediaType("html", MediaType.TEXT_HTML)
 				.mediaType("xml", MediaType.APPLICATION_XML)
 				.mediaType("json", MediaType.APPLICATION_JSON);
+		logger.warn("The configurer is a " + configurer.getClass());
+	}
+	
+	@Bean(name="contentNegotiatingViewResolver")
+	public ViewResolver getContentNegotiatingViewResolver(
+			ContentNegotiationManager manager) {
+		ContentNegotiatingViewResolver resolver = new ContentNegotiatingViewResolver();
+		resolver.setContentNegotiationManager(manager);
+		logger.warn("Created ContentNegotiatingViewResolver");
+		return resolver;
 	}
 
-	@Bean(name = "messageSource")
+	@Bean(name="messageSource")
 	// Mandatory name
 	public MessageSource getMessageSource() {
 		ReloadableResourceBundleMessageSource msgSrc = new ReloadableResourceBundleMessageSource();

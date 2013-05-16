@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
@@ -29,6 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Customer {
 
 	@Id
+	@JsonIgnore
 	@Column(name = "ID")
 	private Integer entityId;
 
