@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.springsource.training.module</groupId>
 	<artifactId>mvc-content-neg</artifactId>
-	<name>Spring MVC Views Solution</name>
+	<name>Spring MVC Content Negotiation Example</name>
 	<packaging>war</packaging>
 	<version>1.0.0</version>
 
